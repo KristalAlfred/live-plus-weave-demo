@@ -1,0 +1,11 @@
+{
+  "name": "greenroom-check",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "guest": "node guest.mjs"
+  },
+  "dependencies": {
+    "playwright": "1.62.1"
+  }
+}

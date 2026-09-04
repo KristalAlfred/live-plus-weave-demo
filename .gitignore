@@ -1,0 +1,5 @@
+target
+greenroom-state.json
+greenroom-state.json.tmp
+check/node_modules
+.playwright-mcp

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>greenroom · operator</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='5' fill='%2316a34a'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/assets/base.css">
+<style>
+  [hidden] { display: none !important; }
+
+  .invite { display: flex; align-items: flex-end; gap: 0.75rem; flex-wrap: wrap; }
+  .invite .field { display: flex; flex-direction: column; }
+  .invite .field label { margin-bottom: 0.25rem; }
+  .invite #name { width: 14rem; }
+
+  #feed { font-size: 0.8125rem; padding-top: 0.625rem; }
+
+  .handover { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.625rem; }
+  .handover .who { color: var(--fg); }
+
+  .seat {
+    border: 1px solid var(--hairline); border-radius: 8px; background: var(--raised);
+    padding: 0.875rem 1rem; margin-bottom: 0.75rem;
+  }
+  .seat-head { display: flex; align-items: baseline; gap: 0.625rem; flex-wrap: wrap; }
+  .seat-head .name { font-weight: 600; }
+  .seat-head .sid { font-size: 0.75rem; }
+  .seat-head .spacer, .link-row .spacer { margin-left: auto; }
+
+  .seat .chain {
+    display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
+    margin: 0.875rem 0; padding: 0.625rem 0;
+    border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline);
+    align-items: start;
+  }
+  .seat .step { align-items: flex-start; }
+  .seat .step .dot { margin-top: 0.375rem; }
+  .seat .step + .step::before { margin-top: 0.125rem; }
+  .seat .step .body { display: flex; flex-direction: column; }
+  .seat .step .detail {
+    font-family: var(--mono); font-size: 0.6875rem; color: var(--muted);
+    overflow-wrap: anywhere;
+  }
+
+  @media (max-width: 60rem) {
+    .seat .chain { grid-template-columns: 1fr; row-gap: 0.5rem; }
+    .seat .step + .step::before { content: none; margin: 0; }
+  }
+
+  .link-row { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+  .link-row .url {
+    flex: 1 1 20rem; min-width: 8rem; font-size: 0.75rem; color: var(--muted);
+    background: var(--chip); text-overflow: ellipsis;
+  }
+  .link-row .expiry { font-size: 0.75rem; white-space: nowrap; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>greenroom</h1>
+    <span class="muted">operator</span>
+    <span class="spacer"></span>
+    <span class="meta" id="meta"></span>
+  </header>
+  <div class="muted" id="feed" hidden>Gateway unreachable — retrying.</div>
+
+  <section>
+    <h2>New invite</h2>
+    <form class="invite" id="invite" autocomplete="off">
+      <div class="field">
+        <label for="name">Guest name</label>
+        <input id="name" name="name" placeholder="Alice">
+      </div>
+      <div class="field">
+        <label for="ttl">Link lifetime</label>
+        <select id="ttl" name="ttl_secs">
+          <option value="900">15 minutes</option>
+          <option value="3600" selected>1 hour</option>
+          <option value="28800">8 hours</option>
+        </select>
+      </div>
+      <button class="primary" id="create" type="submit">Create invite</button>
+    </form>
+    <div class="error" id="form-error" hidden></div>
+    <div class="notice handover" id="handover" hidden>
+      <div><span class="who" id="handover-name"></span> — send this link to the guest</div>
+      <div class="link-row">
+        <input class="mono url" id="handover-url" readonly spellcheck="false" aria-label="Join link">
+        <button id="handover-copy" type="button">Copy link</button>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Seats</h2>
+    <div id="seats"></div>
+    <div class="empty" id="seats-empty">No seats yet — create the first invite above.</div>
+  </section>
+</main>
+<script src="/assets/operator.js"></script>
+</body>
+</html>
