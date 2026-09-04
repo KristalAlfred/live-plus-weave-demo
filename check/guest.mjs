@@ -85,6 +85,10 @@ if (args.stay) {
   await new Promise(() => {});
 }
 await browser.close();
+// Revoking withdraws the weave stream, which is what stops open-live keeping a
+// source document for a guest this script invented.
+await fetch(`${gateway}/api/seats/${invite.seat}`, { method: "DELETE" }).catch(() => {});
+console.log(`revoked ${invite.seat}`);
 process.exit(reached ? 0 : 1);
 
 async function seatOf(id) {
