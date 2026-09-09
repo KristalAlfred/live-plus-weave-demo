@@ -7,9 +7,8 @@ publish = false
 
 [dependencies]
 # The wire contract comes from open-weave itself, so the payloads this service
-# builds cannot drift from the ones the control plane accepts. Requires
-# open-weave cloned beside this repo; see README.md.
-weave-core = { path = "../open-weave/crates/core" }
+# builds cannot drift from the ones the control plane accepts.
+weave-core = { git = "https://github.com/KristalAlfred/open-weave" }
 
 anyhow = "1"
 axum = "0.8"

@@ -1586,6 +1586,7 @@ dependencies = [
 [[package]]
 name = "weave-core"
 version = "0.1.0"
+source = "git+https://github.com/KristalAlfred/open-weave#20db0ee931497954c061c5f20bce30ffe1001fa5"
 dependencies = [
  "serde",
  "serde_json",

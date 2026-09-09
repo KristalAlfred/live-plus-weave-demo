@@ -81,13 +81,14 @@ just wait up to one interval instead of ~10 ms.
 
 ## Running it
 
-greenroom needs open-weave **cloned beside this repo**: it depends on
-`weave-core` by path (`../open-weave/crates/core`) so the registration payload,
-the stream definition and the webhook event are the control plane's own types
-rather than copies that can drift.
+greenroom depends on `weave-core` straight from open-weave over git, so the
+registration payload, the stream definition and the webhook event are the
+control plane's own types rather than copies that can drift. Building needs
+only a clone of this repo; `Cargo.lock` pins the open-weave commit.
 
-Against a running open-weave bench and open-live, the defaults in the justfile
-need no configuration:
+Running the demo is what needs open-weave and open-live checked out, because
+the bench below is theirs. Against a running open-weave bench and open-live,
+the defaults in the justfile need no configuration:
 
 ```sh
 cd ~/git/open-weave && just bench up          # weave: 29080 / 29081 / 29082
